@@ -53,26 +53,15 @@ kable(aic_df_all, digits = 1, caption = "AIC Comparison of Candidate Models") %>
 
 
 
-
-
-preds = ggpredict(model_tac, terms = c("tac_z", "sex"))
-pred_df = as.data.frame(preds)
-
-
-
-
-cor.test(monkey_subject$exc_z, monkey_subject$median_fgc, method = "spearman")
-cor.test(monkey_subject$soc_z, monkey_subject$median_fgc, method = "spearman")
-cor.test(monkey_subject$tac_z, monkey_subject$median_fgc, method = "spearman")
-
-cor.test(monkey_subject$tac_z, monkey_subject$soc_z, method = "spearman")
-cor.test(monkey_subject$exc_z, monkey_subject$tac_z, method = "spearman")
-cor.test(monkey_subject$exc_z, monkey_subject$soc_z, method = "spearman")
-
 wilcox.test(median_fgc ~ sex, data = monkey_subject)
 wilcox.test(exc_z ~ sex, data = monkey_subject)
 wilcox.test(soc_z ~ sex, data = monkey_subject)
-wilcox.test(tac_z ~ sex, data = monkey_subject)
+wilcox.test(tac ~ sex, data = monkey_subject)
+
+wilcox.test(tac ~ sex, data = monkey_clean)
+wilcox.test(soc ~ sex, data = monkey_clean)
+wilcox.test(exc ~ sex, data = monkey_clean)
+wilcox.test(fgc ~ sex, data = monkey_clean)
 
 
 coef_table <- tidy(model_tac) %>%

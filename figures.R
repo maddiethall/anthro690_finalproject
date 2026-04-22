@@ -1,11 +1,12 @@
 library(ggplot2)
 
 #scatterplot + separate regression lines by sex
-ggplot(monkey_subject, aes(x = tac, y = median_fgc, color = sex)) +
+ggplot(monkey_subject, aes(x = tac_z, y = median_fgc, color = sex)) +
+  scale_color_manual(values = c("#D29AE3", "#9ADEE3")) +
   geom_point(size = 2) +
   geom_smooth(method = "lm", se = FALSE) +
   labs(
-    x = "Tactility score",
+    x = "Tactility Z-Score",
     y = "Median fGC concentration",
     color = "Sex"
   ) +
@@ -63,17 +64,6 @@ ggplot(monkey_clean, aes(x = sex, y = exc, fill = sex)) +
   guides(fill = "none")
 
 
-#ggpredict plot
-ggplot(pred_df, aes(x = x, y = predicted, color = group, fill = group)) +
-  geom_line(linewidth = 1.2) +
-  geom_ribbon(aes(ymin = conf.low, ymax = conf.high), alpha = 0.15, color = NA) +
-  labs(
-    x = "Tactility Score (z-score)",
-    y = "Predicted median fGC",
-    color = "Sex",
-    fill = "Sex"
-  ) +
-  theme_classic()
 
 
 #assumptions
