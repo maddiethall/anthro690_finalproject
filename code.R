@@ -27,20 +27,21 @@ monkey_subject$soc_z = as.numeric(scale(monkey_subject$soc))
 monkey_subject$tac_z = as.numeric(scale(monkey_subject$tac))
 monkey_subject$rank_z = as.numeric(scale(monkey_subject$rank))
 
-model_exc = lm(median_fgc ~ exc_z * sex + rank_z, data = monkey_subject)
+model_exc = lm(median_fgc ~ exc * sex + rank, data = monkey_subject)
 summary(model_exc)
 
-model_soc = lm(median_fgc ~ soc_z * sex + rank_z, data = monkey_subject)
+model_soc = lm(median_fgc ~ soc * sex + rank, data = monkey_subject)
 summary(model_soc)
 
-model_full = lm(median_fgc ~ exc_z + soc_z + tac_z * sex, data = monkey_subject)
+model_full = lm(median_fgc ~ exc + soc + tac * sex + rank, data = monkey_subject)
 summary(model_full)
 
-model_null = lm(median_fgc ~ sex + rank_z, data = monkey_subject)
+model_null = lm(median_fgc ~ sex + rank, data = monkey_subject)
 
 #best model
-model_tac = lm(median_fgc ~ tac_z * sex + rank_z, data = monkey_subject)
+model_tac = lm(median_fgc ~ tac * sex + rank, data = monkey_subject)
 summary(model_tac)
+
 
 aic_df_all = AIC(model_exc, model_soc, model_tac, model_full, model_null) |>
   tibble::rownames_to_column("Model") |>
@@ -54,8 +55,8 @@ kable(aic_df_all, digits = 1, caption = "AIC Comparison of Candidate Models") %>
 
 
 wilcox.test(median_fgc ~ sex, data = monkey_subject)
-wilcox.test(exc_z ~ sex, data = monkey_subject)
-wilcox.test(soc_z ~ sex, data = monkey_subject)
+wilcox.test(exc ~ sex, data = monkey_subject)
+wilcox.test(soc ~ sex, data = monkey_subject)
 wilcox.test(tac ~ sex, data = monkey_subject)
 
 wilcox.test(tac ~ sex, data = monkey_clean)
@@ -102,9 +103,3 @@ kable(coef_table,
       caption = "Coefficient Estimates for Best-Fitting Linear Regression Model",
       col.names = c("Term","Estimate","Std. Error","z","p")) %>%
   kable_classic(full_width = FALSE)
-
-
-wilcox.test(fgc ~ sex, data = monkey_clean)
-wilcox.test(exc ~ sex, data = monkey_clean)
-wilcox.test(soc ~ sex, data = monkey_clean)
-wilcox.test(tac ~ sex, data = monkey_clean)
