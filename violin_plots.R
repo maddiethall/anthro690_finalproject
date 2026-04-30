@@ -33,7 +33,7 @@ ggplot(monkey_subject, aes(x=sex, y=median_fgc, fill=sex)) +
   theme(legend.position = "none")
 
 
-### raw data 
+### raw data, not used in paper 
 
 ggplot(monkey_clean, aes(x=sex, y=tac, fill=sex)) + 
   geom_violin(trim = FALSE) +
@@ -66,7 +66,7 @@ ggplot(monkey_clean, aes(x=sex, y=fgc, fill=sex)) +
   theme(legend.position = "none")
 
 
-### behavioral syndromes together
+### behavioral syndromes together, figure 5 in paper
 
 df_long_cols = monkey_subject %>%
   rename(

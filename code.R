@@ -1,5 +1,4 @@
 library(dplyr)
-library(ggeffects)
 library(knitr)
 library(kableExtra)
 library(broom)
@@ -43,6 +42,7 @@ model_tac = lm(median_fgc ~ tac * sex + rank, data = monkey_subject)
 summary(model_tac)
 
 
+#figure 3 in paper
 aic_df_all = AIC(model_exc, model_soc, model_tac, model_full, model_null) |>
   tibble::rownames_to_column("Model") |>
   rename(AIC = `AIC`) |>
@@ -53,18 +53,13 @@ kable(aic_df_all, digits = 1, caption = "AIC Comparison of Candidate Models") %>
   kable_classic(full_width = FALSE)
 
 
-
 wilcox.test(median_fgc ~ sex, data = monkey_subject)
 wilcox.test(exc ~ sex, data = monkey_subject)
 wilcox.test(soc ~ sex, data = monkey_subject)
 wilcox.test(tac ~ sex, data = monkey_subject)
 
-wilcox.test(tac ~ sex, data = monkey_clean)
-wilcox.test(soc ~ sex, data = monkey_clean)
-wilcox.test(exc ~ sex, data = monkey_clean)
-wilcox.test(fgc ~ sex, data = monkey_clean)
 
-
+#figure 6 in paper
 coef_table <- tidy(model_tac) %>%
   mutate(
     stars = case_when(
@@ -103,3 +98,10 @@ kable(coef_table,
       caption = "Coefficient Estimates for Best-Fitting Linear Regression Model",
       col.names = c("Term","Estimate","Std. Error","z","p")) %>%
   kable_classic(full_width = FALSE)
+
+
+#assumptions
+par(mfrow = c(2,2))
+plot(model_tac)
+
+shapiro.test(residuals(model_tac))

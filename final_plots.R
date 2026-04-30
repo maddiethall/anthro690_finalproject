@@ -4,7 +4,7 @@ library(RColorBrewer)
 library(tidyverse)
 
 
-## Violin plots of median syndrome scores
+## Violin plots of median syndrome scores, figure 5 in paper
 
 ggplot(df_long, aes(x = syndrome, y = score, fill = Sex)) +
   geom_violin(trim = FALSE, position = position_dodge(width = 0.6)) +
@@ -38,7 +38,7 @@ ggplot(df_long, aes(x = syndrome, y = score, fill = Sex)) +
     textsize = 5
   )
 
-## Violin plot of fgc and sex
+## Violin plot of fgc and sex, figure 4 in paper
 
 ggplot(monkey_subject, aes(x=sex, y=median_fgc, fill=sex)) + 
   geom_violin(trim = FALSE) +
@@ -65,7 +65,7 @@ ggplot(monkey_subject, aes(x=sex, y=median_fgc, fill=sex)) +
   )
 
 
-#scatterplot + separate regression lines by sex
+#scatterplot + separate regression lines by sex, figure 7 in paper
 
 ggplot(monkey_subject, aes(x = tac, y = median_fgc, color = sex)) +
   scale_color_manual(values = c("#D29AE3", "#9ADEE3")) +

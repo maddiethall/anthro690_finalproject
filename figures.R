@@ -6,11 +6,12 @@ ggplot(monkey_subject, aes(x = tac, y = median_fgc, color = sex)) +
   geom_point(size = 2) +
   geom_smooth(method = "lm", se = FALSE) +
   labs(
-    x = "Tactility Z-Score",
+    x = "Median Tactility Score",
     y = "Median fGC concentration",
     color = "Sex"
   ) +
   theme_classic()
+
 
 ggplot(monkey_clean, aes(x = tac, y = fgc, color = sex)) +
   geom_point(size = 1, alpha = 0.4) +
@@ -63,13 +64,5 @@ ggplot(monkey_clean, aes(x = sex, y = exc, fill = sex)) +
   theme_classic() +
   guides(fill = "none")
 
-
-
-
-#assumptions
-par(mfrow = c(2,2))
-plot(model_tac)
-
-shapiro.test(residuals(model_tac))
 
 
